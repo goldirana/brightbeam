@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  # ─── Feature Extraction + Clustering (CPU-only, lightweight) ───
+  feature-service:
+    build:
+      context: ../../
+      dockerfile: infra/docker/Dockerfile
+    command: ["discover-clusters"]
+    volumes:
+      - ../../data:/app/data:ro
+      - ../../output:/app/output
+    env_file:
+      - ../../.env
+
+  # ─── Summarisation Service (LLM-heavy, scale this) ───
+  summarisation-service:
+    build:
+      context: ../../
+      dockerfile: infra/docker/Dockerfile
+    command: ["summarise"]
+    volumes:
+      - ../../data:/app/data:ro
+      - ../../output:/app/output
+    env_file:
+      - ../../.env
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          memory: 512M
+
+  # ─── Dashboard Generator ───
+  dashboard-service:
+    build:
+      context: ../../
+      dockerfile: infra/docker/Dockerfile
+    command: ["dashboard"]
+    volumes:
+      - ../../output:/app/output
+    depends_on:
+      - summarisation-service

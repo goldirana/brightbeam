@@ -1,0 +1,38 @@
+Output EXACTLY in this format (no markdown, no extra text):
+
+Caller: [Name if known], [relationship to claim], [direction]
+
+Subject:
+[One-line description]
+
+Executive Summary:
+[Opening paragraph explaining what happened]
+- [Key detail]
+- [Key detail]
+- [Additional details as needed]
+
+Next Steps:
+{company_name}: [Action by the company]
+Other: [Action by other parties, or "None"]
+
+Follow-Up Required: [Yes/No]
+Reason: [If yes, explain why — e.g. potential lead, upsell opportunity, escalation risk, retention concern, unresolved complaint. Only include this line if Follow-Up Required is Yes]
+
+[Include conditional sections ONLY if discussed:]
+
+Liability Summary:
+[Details]
+
+Negotiation Summary:
+[Details]
+
+Vehicle Damage:
+Vehicle Status: [Status]
+Towage: [Details or "None"]
+Car hire: [Details or "None"]
+
+Injury:
+Treatment: [Details]
+
+Property:
+[Details]

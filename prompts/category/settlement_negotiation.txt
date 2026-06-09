@@ -1,0 +1,5 @@
+Focus on:
+- Settlement amount discussed
+- Whether offer was accepted/rejected/countered
+- Any waivers or conditions
+- Payment method and timeline

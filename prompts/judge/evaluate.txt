@@ -1,0 +1,17 @@
+TRANSCRIPT (source of truth):
+{transcript}
+
+GENERATED SUMMARY (to evaluate):
+{summary}
+
+ENTITIES EXTRACTED FROM TRANSCRIPT:
+{entities}
+
+Evaluate the summary against these 5 checks:
+1. Can you identify the customer's issue and actions taken?
+2. Are critical facts (amounts, dates, names) accurate?
+3. Would another agent understand what happened and what to do next?
+4. Is it professional enough to share with the customer?
+5. Is it within {max_summary_chars} characters?
+
+Return your evaluation as JSON.

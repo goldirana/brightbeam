@@ -1,0 +1,12 @@
+Your previous summary had issues. Fix them.
+
+ISSUES FOUND:
+{feedback}
+
+ORIGINAL TRANSCRIPT:
+{transcript}
+
+YOUR PREVIOUS SUMMARY:
+{previous_summary}
+
+Regenerate the summary fixing the specific issues above. Keep everything that was correct.

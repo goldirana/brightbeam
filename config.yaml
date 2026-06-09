@@ -1,0 +1,259 @@
+# ═══════════════════════════════════════════════════════════════
+# BrightBeam Configuration — SINGLE SOURCE OF TRUTH
+# Change anything here, it propagates everywhere.
+# ═══════════════════════════════════════════════════════════════
+
+# ─── LLM Models ───────────────────────────────────────────────
+models:
+  summarisation:
+    provider: "openrouter"          # openrouter | openai | anthropic
+    model: "anthropic/claude-sonnet-4"
+    temperature: 0.3
+    max_tokens: 2000
+  judge:
+    provider: "openrouter"
+    model: "anthropic/claude-sonnet-4"
+    temperature: 0.1
+    max_tokens: 1500
+
+# ─── Embedding ────────────────────────────────────────────────
+embedding:
+  provider: "openai"                # openai | sentence_transformers
+  model: "text-embedding-3-small"
+  dimension: 1536
+
+# ─── Pipeline Settings ────────────────────────────────────────
+pipeline:
+  max_retries: 2
+  pass_threshold: 0.8
+  max_summary_chars: 1500
+  company_name: "COMPANY"
+
+# ─── Paths (relative to project root) ────────────────────────
+paths:
+  data_dir: "data/raw/bb-hiring-call-summary"
+  examples_dir: "data/raw/bb-hiring-call-summary/examples"
+  test_dir: "data/raw/bb-hiring-call-summary/to-summarise"
+  output_dir: "output"
+  centroids_file: "output/centroids.json"
+  prompts_dir: "prompts"
+
+# ─── Prompt File Paths (relative to prompts_dir) ─────────────
+prompts:
+  system_base: "system/base.txt"
+  output_format: "system/output_format.txt"
+  retry: "system/retry.txt"
+  judge_system: "judge/system.txt"
+  judge_evaluate: "judge/evaluate.txt"
+  # Category prompts are auto-loaded from prompts/category/{category_name}.txt
+
+# ─── Categories ───────────────────────────────────────────────
+categories:
+  liability_claim:
+    description: "Calls about liability disputes, fault determination"
+    keywords:
+      - "liability"
+      - "fault"
+      - "negligence"
+      - "third party"
+      - "at fault"
+      - "not at fault"
+      - "blame"
+      - "responsible"
+      - "admitted"
+      - "split liability"
+  injury:
+    description: "Calls involving personal injury claims"
+    keywords:
+      - "injury"
+      - "hospital"
+      - "medical"
+      - "treatment"
+      - "pain"
+      - "doctor"
+      - "physiotherapy"
+      - "whiplash"
+      - "GP"
+      - "ambulance"
+  vehicle_damage:
+    description: "Calls about vehicle damage, repairs, write-offs"
+    keywords:
+      - "vehicle"
+      - "car"
+      - "damage"
+      - "repair"
+      - "garage"
+      - "write-off"
+      - "MOT"
+      - "bumper"
+      - "windscreen"
+      - "bodywork"
+  property_damage:
+    description: "Calls about property damage claims"
+    keywords:
+      - "property"
+      - "house"
+      - "flooding"
+      - "roof"
+      - "wall"
+      - "fence"
+      - "garden"
+      - "building"
+      - "pipe"
+      - "leak"
+  settlement_negotiation:
+    description: "Calls involving settlement offers and negotiation"
+    keywords:
+      - "settlement"
+      - "offer"
+      - "negotiate"
+      - "accept"
+      - "reject"
+      - "compensation"
+      - "waiver"
+      - "payment"
+      - "final offer"
+      - "counter"
+  general_enquiry:
+    description: "General policy enquiries, status updates, admin"
+    keywords:
+      - "policy"
+      - "update"
+      - "status"
+      - "query"
+      - "information"
+      - "confirm"
+      - "details"
+      - "renewal"
+      - "premium"
+      - "cover"
+
+# ─── Feature Extraction ──────────────────────────────────────
+feature_extraction:
+  top_keywords: 10
+  tfidf_max_features: 5000
+  tfidf_ngram_range: [1, 2]
+
+# ─── Stop Words (for keyword extraction) ─────────────────────
+stop_words:
+  - "i"
+  - "me"
+  - "my"
+  - "we"
+  - "our"
+  - "you"
+  - "your"
+  - "he"
+  - "she"
+  - "it"
+  - "they"
+  - "the"
+  - "a"
+  - "an"
+  - "is"
+  - "are"
+  - "was"
+  - "were"
+  - "be"
+  - "been"
+  - "have"
+  - "has"
+  - "had"
+  - "do"
+  - "does"
+  - "did"
+  - "will"
+  - "would"
+  - "could"
+  - "should"
+  - "may"
+  - "might"
+  - "shall"
+  - "can"
+  - "need"
+  - "to"
+  - "of"
+  - "in"
+  - "for"
+  - "on"
+  - "with"
+  - "at"
+  - "by"
+  - "from"
+  - "as"
+  - "into"
+  - "through"
+  - "during"
+  - "before"
+  - "after"
+  - "above"
+  - "below"
+  - "between"
+  - "out"
+  - "off"
+  - "over"
+  - "under"
+  - "again"
+  - "further"
+  - "then"
+  - "once"
+  - "that"
+  - "this"
+  - "these"
+  - "those"
+  - "and"
+  - "but"
+  - "or"
+  - "nor"
+  - "not"
+  - "so"
+  - "very"
+  - "just"
+  - "about"
+  - "up"
+  - "there"
+  - "here"
+  - "when"
+  - "where"
+  - "why"
+  - "how"
+  - "all"
+  - "each"
+  - "every"
+  - "both"
+  - "few"
+  - "more"
+  - "most"
+  - "other"
+  - "some"
+  - "such"
+  - "no"
+  - "only"
+  - "own"
+  - "same"
+  - "than"
+  - "too"
+  - "also"
+  # Speech artifacts
+  - "okay"
+  - "yeah"
+  - "yes"
+  - "right"
+  - "um"
+  - "uh"
+  - "like"
+  - "well"
+  - "know"
+  - "think"
+  - "just"
+  - "going"
+  - "got"
+
+# ─── NER Patterns (regex for domain-specific entities) ────────
+ner_patterns:
+  MONEY: '[£$€]\s*[\d,]+(?:\.\d{2})?|\d+[\d,]*\s*(?:pounds|dollars|euros)'
+  DATE: '\d{1,2}(?:st|nd|rd|th)?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s*\d{0,4}|\d{1,2}[/-]\d{1,2}[/-]\d{2,4}'
+  REF_NUMBER: '(?:REF|CLM|claim|reference|policy)\s*[-:#]?\s*([A-Z0-9][-A-Z0-9]{4,})'
+  PHONE: '(?:\+44|0)\s*\d[\d\s]{8,}'
+  EMAIL: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+  IBAN: '[A-Z]{2}\d{2}[A-Z0-9]{4,30}'

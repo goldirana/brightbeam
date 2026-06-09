@@ -1,0 +1,5 @@
+Focus on:
+- Vehicle condition and damage details
+- Repair vs write-off decision
+- Towage and storage arrangements
+- Hire car requirements and duration
